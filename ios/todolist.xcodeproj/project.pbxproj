@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* todolistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* todolistTests.m */; };
+		027A12123B604998A61476E2 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E827889AA83440BA07EC466 /* Roboto-Medium.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-todolist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-todolist.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		5121BBE6C7B24E10AA3C3B92 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 654A79250C224335B2553D59 /* Roboto-Bold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-todolist-todolistTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-todolist-todolistTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		3C937724836A419FB8C9947C /* Fontspring-DEMO-greycliffcf-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A6A1744321FA481DBD99AE64 /* Fontspring-DEMO-greycliffcf-bold.otf */; };
-		64CE9D75D45B48D3971AD278 /* Fontspring-DEMO-greycliffcf-demibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96739F1D804A48EA92E98F3D /* Fontspring-DEMO-greycliffcf-demibold.otf */; };
-		B8150428C329479CB5B155CC /* Fontspring-DEMO-greycliffcf-medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E38BB325E3E34CB08FC28FA3 /* Fontspring-DEMO-greycliffcf-medium.otf */; };
-		75B42B0372D74D2483C0E3A8 /* Fontspring-DEMO-greycliffcf-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A537207A7BA7459D846BF719 /* Fontspring-DEMO-greycliffcf-regular.otf */; };
+		889974F0E8274FECA8EF9393 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9EE1A8841564C56BB007047 /* Roboto-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +33,7 @@
 		00E356EE1AD99517003FC87E /* todolistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = todolistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* todolistTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = todolistTests.m; sourceTree = "<group>"; };
+		0E827889AA83440BA07EC466 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* todolist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todolist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = todolist/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = todolist/AppDelegate.mm; sourceTree = "<group>"; };
@@ -45,13 +45,11 @@
 		5709B34CF0A7D63546082F79 /* Pods-todolist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todolist.release.xcconfig"; path = "Target Support Files/Pods-todolist/Pods-todolist.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-todolist-todolistTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todolist-todolistTests.debug.xcconfig"; path = "Target Support Files/Pods-todolist-todolistTests/Pods-todolist-todolistTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-todolist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-todolist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		654A79250C224335B2553D59 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = todolist/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-todolist-todolistTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todolist-todolistTests.release.xcconfig"; path = "Target Support Files/Pods-todolist-todolistTests/Pods-todolist-todolistTests.release.xcconfig"; sourceTree = "<group>"; };
+		B9EE1A8841564C56BB007047 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		A6A1744321FA481DBD99AE64 /* Fontspring-DEMO-greycliffcf-bold.otf */ = {isa = PBXFileReference; name = "Fontspring-DEMO-greycliffcf-bold.otf"; path = "../assets/fonts/Fontspring-DEMO-greycliffcf-bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		96739F1D804A48EA92E98F3D /* Fontspring-DEMO-greycliffcf-demibold.otf */ = {isa = PBXFileReference; name = "Fontspring-DEMO-greycliffcf-demibold.otf"; path = "../assets/fonts/Fontspring-DEMO-greycliffcf-demibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E38BB325E3E34CB08FC28FA3 /* Fontspring-DEMO-greycliffcf-medium.otf */ = {isa = PBXFileReference; name = "Fontspring-DEMO-greycliffcf-medium.otf"; path = "../assets/fonts/Fontspring-DEMO-greycliffcf-medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A537207A7BA7459D846BF719 /* Fontspring-DEMO-greycliffcf-regular.otf */ = {isa = PBXFileReference; name = "Fontspring-DEMO-greycliffcf-regular.otf"; path = "../assets/fonts/Fontspring-DEMO-greycliffcf-regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +112,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3F85C0A11CD94D5686996DF2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				654A79250C224335B2553D59 /* Roboto-Bold.ttf */,
+				0E827889AA83440BA07EC466 /* Roboto-Medium.ttf */,
+				B9EE1A8841564C56BB007047 /* Roboto-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,18 +165,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		3F85C0A11CD94D5686996DF2 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				A6A1744321FA481DBD99AE64 /* Fontspring-DEMO-greycliffcf-bold.otf */,
-				96739F1D804A48EA92E98F3D /* Fontspring-DEMO-greycliffcf-demibold.otf */,
-				E38BB325E3E34CB08FC28FA3 /* Fontspring-DEMO-greycliffcf-medium.otf */,
-				A537207A7BA7459D846BF719 /* Fontspring-DEMO-greycliffcf-regular.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -204,7 +200,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,10 +260,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				3C937724836A419FB8C9947C /* Fontspring-DEMO-greycliffcf-bold.otf in Resources */,
-				64CE9D75D45B48D3971AD278 /* Fontspring-DEMO-greycliffcf-demibold.otf in Resources */,
-				B8150428C329479CB5B155CC /* Fontspring-DEMO-greycliffcf-medium.otf in Resources */,
-				75B42B0372D74D2483C0E3A8 /* Fontspring-DEMO-greycliffcf-regular.otf in Resources */,
+				5121BBE6C7B24E10AA3C3B92 /* Roboto-Bold.ttf in Resources */,
+				027A12123B604998A61476E2 /* Roboto-Medium.ttf in Resources */,
+				889974F0E8274FECA8EF9393 /* Roboto-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,23 +361,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-todolist-todolistTests/Pods-todolist-todolistTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-todolist/Pods-todolist-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-todolist/Pods-todolist-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-todolist/Pods-todolist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {

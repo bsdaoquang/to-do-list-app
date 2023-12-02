@@ -53,10 +53,9 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Fontspring-DEMO-greycliffcf-bold.otf</string>
-		<string>Fontspring-DEMO-greycliffcf-demibold.otf</string>
-		<string>Fontspring-DEMO-greycliffcf-medium.otf</string>
-		<string>Fontspring-DEMO-greycliffcf-regular.otf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

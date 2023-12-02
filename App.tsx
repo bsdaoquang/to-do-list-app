@@ -8,7 +8,6 @@ const App = () => {
         style={{
           color: '#fafafa',
           fontSize: 18,
-          fontFamily: 'Fontspring-DEMO-greycliffcf-bold',
         }}>
         Wellcome to my first app
       </Text>
