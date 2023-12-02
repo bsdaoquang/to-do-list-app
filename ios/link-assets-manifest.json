@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Fontspring-DEMO-greycliffcf-bold.otf",
+      "sha1": "7a386e7e458b62c1df1a2553f9be70421ade1443"
+    },
+    {
+      "path": "assets/fonts/Fontspring-DEMO-greycliffcf-demibold.otf",
+      "sha1": "673d89d27038dc6776a312d22d78e7abef2c8f2c"
+    },
+    {
+      "path": "assets/fonts/Fontspring-DEMO-greycliffcf-medium.otf",
+      "sha1": "dcf69a2c0cc35faf24b0c08e33bdae31eb12a50b"
+    },
+    {
+      "path": "assets/fonts/Fontspring-DEMO-greycliffcf-regular.otf",
+      "sha1": "1b2404b850def0a2aabe14a3defafd73d3b1c5a9"
+    }
+  ]
+}
