@@ -1,5 +1,6 @@
 import {View, Text, StyleSheet, Button} from 'react-native';
 import React from 'react';
+import {fontFamilies} from './src/constants/fontFamilies';
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontWeight: '700',
+    fontFamily: fontFamilies.bold,
     fontSize: 32,
     color: '#fff',
   },
