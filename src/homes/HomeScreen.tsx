@@ -11,6 +11,7 @@ import {colors} from '../constants/colors';
 import {globalStyles} from '../styles/globalStyles';
 import TagComponent from '../components/TagComponent';
 import SpaceComponent from '../components/SpaceComponent';
+import CicularComponent from '../components/CicularComponent';
 
 const HomeScreen = () => {
   return (
@@ -48,7 +49,7 @@ const HomeScreen = () => {
               </RowComponent>
             </View>
             <View>
-              <TextComponent text="CircleChar" />
+              <CicularComponent value={80} />
             </View>
           </RowComponent>
         </CardComponent>
