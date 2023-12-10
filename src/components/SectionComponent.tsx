@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
-import React, {Children, ReactNode} from 'react';
+import React, {ReactNode} from 'react';
+import {View} from 'react-native';
 import {globalStyles} from '../styles/globalStyles';
 
 interface Props {

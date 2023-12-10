@@ -1,5 +1,5 @@
-import {View, Text, ScrollView} from 'react-native';
 import React, {ReactNode} from 'react';
+import {ScrollView} from 'react-native';
 import {globalStyles} from '../styles/globalStyles';
 
 interface Props {
