@@ -2,12 +2,10 @@ import {ArrowLeft2} from 'iconsax-react-native';
 import React, {ReactNode} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {colors} from '../constants/colors';
+import {fontFamilies} from '../constants/fontFamilies';
 import {globalStyles} from '../styles/globalStyles';
 import RowComponent from './RowComponent';
-import {useNavigation} from '@react-navigation/native';
-import TitleComponent from './TitleComponent';
 import TextComponent from './TextComponent';
-import {fontFamilies} from '../constants/fontFamilies';
 
 interface Props {
   title?: string;
@@ -18,8 +16,6 @@ interface Props {
 
 const Container = (props: Props) => {
   const {title, back, right, children} = props;
-
-  const navigation: any = useNavigation();
 
   return (
     <View style={[globalStyles.container]}>
@@ -33,7 +29,7 @@ const Container = (props: Props) => {
           alignItems: 'center',
         }}>
         {back && (
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {}}>
             <ArrowLeft2 size={24} color={colors.text} />
           </TouchableOpacity>
         )}

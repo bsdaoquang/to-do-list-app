@@ -24,7 +24,7 @@ import {fontFamilies} from '../../constants/fontFamilies';
 import {globalStyles} from '../../styles/globalStyles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const HomeScreen = ({navigation}: any) => {
+const HomeScreen = () => {
   return (
     <View style={{flex: 1}}>
       <Container>
@@ -148,14 +148,14 @@ const HomeScreen = ({navigation}: any) => {
           alignItems: 'center',
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('AddNewTask')}
           activeOpacity={1}
           style={[
             globalStyles.row,
             {
-              backgroundColor: 'coral',
+              backgroundColor: colors.blue,
               padding: 10,
-              borderRadius: 100,
+              borderRadius: 12,
+              paddingVertical: 14,
               width: '80%',
             },
           ]}>
