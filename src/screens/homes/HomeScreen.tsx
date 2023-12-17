@@ -6,22 +6,23 @@ import {
   SearchNormal1,
 } from 'iconsax-react-native';
 import React from 'react';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
+import AvatarGroup from '../../components/AvatarGroup';
 import CardComponent from '../../components/CardComponent';
+import CardImageConponent from '../../components/CardImageConponent';
+import CicularComponent from '../../components/CicularComponent';
 import Container from '../../components/Container';
+import ProgressBarComponent from '../../components/ProgressBarComponent';
 import RowComponent from '../../components/RowComponent';
 import SectionComponent from '../../components/SectionComponent';
+import SpaceComponent from '../../components/SpaceComponent';
+import TagComponent from '../../components/TagComponent';
 import TextComponent from '../../components/TextComponent';
 import TitleComponent from '../../components/TitleComponent';
 import {colors} from '../../constants/colors';
-import {globalStyles} from '../../styles/globalStyles';
-import TagComponent from '../../components/TagComponent';
-import SpaceComponent from '../../components/SpaceComponent';
-import CicularComponent from '../../components/CicularComponent';
-import CardImageConponent from '../../components/CardImageConponent';
-import AvatarGroup from '../../components/AvatarGroup';
-import ProgressBarComponent from '../../components/ProgressBarComponent';
 import {fontFamilies} from '../../constants/fontFamilies';
+import {globalStyles} from '../../styles/globalStyles';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeScreen = ({navigation}: any) => {
   return (
