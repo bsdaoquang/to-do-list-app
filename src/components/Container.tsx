@@ -6,6 +6,7 @@ import {fontFamilies} from '../constants/fontFamilies';
 import {globalStyles} from '../styles/globalStyles';
 import RowComponent from './RowComponent';
 import TextComponent from './TextComponent';
+import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   title?: string;
@@ -16,6 +17,8 @@ interface Props {
 
 const Container = (props: Props) => {
   const {title, back, right, children} = props;
+
+  const navigation: any = useNavigation();
 
   return (
     <View style={[globalStyles.container]}>
@@ -29,7 +32,7 @@ const Container = (props: Props) => {
           alignItems: 'center',
         }}>
         {back && (
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <ArrowLeft2 size={24} color={colors.text} />
           </TouchableOpacity>
         )}
