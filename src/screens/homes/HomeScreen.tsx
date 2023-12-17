@@ -22,9 +22,8 @@ import TitleComponent from '../../components/TitleComponent';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
 import {globalStyles} from '../../styles/globalStyles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: any) => {
   return (
     <View style={{flex: 1}}>
       <Container>
@@ -149,6 +148,7 @@ const HomeScreen = () => {
         }}>
         <TouchableOpacity
           activeOpacity={1}
+          onPress={() => navigation.navigate('AddNewTask')}
           style={[
             globalStyles.row,
             {
