@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from '../components/Container';
 import TextComponent from '../components/TextComponent';
 import SectionComponent from '../components/SectionComponent';
@@ -10,22 +10,35 @@ import {colors} from '../constants/colors';
 import {Text, View} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import {globalStyles} from '../styles/globalStyles';
+import SpaceComponent from '../components/SpaceComponent';
 import auth from '@react-native-firebase/auth';
 
-const LoginScreen = ({navigation}: any) => {
+const RegisterScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [errorText, setErrorText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {
-    if (!email || !password) {
-      setErrorText('Please enter your email and password!!!');
-    } else {
+  useEffect(() => {
+    if (email) {
       setErrorText('');
+    }
+  }, [email]);
+
+  const handleCreateAccount = async () => {
+    if (!email) {
+      setErrorText('Please enter your email!!!');
+    } else if (!password || !confirmPassword) {
+      setErrorText('Please enter your password!!!');
+    } else if (password !== confirmPassword) {
+      setErrorText('Password is not match!!!');
+    } else if (password.length < 6) {
+      setErrorText('Password must be to 6 characters');
+    } else {
       setIsLoading(true);
       await auth()
-        .signInWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
           const user = userCredential.user;
 
@@ -35,8 +48,8 @@ const LoginScreen = ({navigation}: any) => {
           }
         })
         .catch(error => {
-          setErrorText(error.message);
           setIsLoading(false);
+          setErrorText(error.message);
         });
     }
   };
@@ -48,7 +61,7 @@ const LoginScreen = ({navigation}: any) => {
           justifyContent: 'center',
         }}>
         <RowComponent styles={{marginBottom: 16}}>
-          <TitleComponent text="LOGIN" size={32} flex={0} />
+          <TitleComponent text="SIGN IN" size={32} flex={0} />
         </RowComponent>
         <InputComponent
           title="Email"
@@ -67,19 +80,31 @@ const LoginScreen = ({navigation}: any) => {
           placeholder="Password"
           prefix={<Lock size={22} color={colors.gray2} />}
         />
+        <InputComponent
+          title="Comfirm password"
+          isPassword
+          value={confirmPassword}
+          onChange={val => setConfirmPassword(val)}
+          placeholder="Comfirm password"
+          prefix={<Lock size={22} color={colors.gray2} />}
+        />
+
+        {errorText && <TextComponent text={errorText} color="coral" flex={0} />}
+        <SpaceComponent height={20} />
+
         <ButtonComponent
           isLoading={isLoading}
-          text="Login"
-          onPress={handleLogin}
+          text="Register"
+          onPress={handleCreateAccount}
         />
 
         <RowComponent styles={{marginTop: 20}}>
           <Text style={[globalStyles.text]}>
-            You don't have an account?{' '}
+            You have an account?{' '}
             <Text
               style={{color: 'coral'}}
-              onPress={() => navigation.navigate('RegisterScreen')}>
-              Create an account
+              onPress={() => navigation.navigate('LoginScreen')}>
+              Login
             </Text>
           </Text>
         </RowComponent>
@@ -88,4 +113,4 @@ const LoginScreen = ({navigation}: any) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

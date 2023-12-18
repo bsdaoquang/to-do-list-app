@@ -1,10 +1,16 @@
-import React, {ReactNode} from 'react';
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import React, {ReactNode, useState} from 'react';
+import {
+  KeyboardTypeOptions,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../constants/colors';
 import {globalStyles} from '../styles/globalStyles';
 import RowComponent from './RowComponent';
 import TitleComponent from './TitleComponent';
+import {Eye, EyeSlash} from 'iconsax-react-native';
 
 interface Props {
   value: string;
@@ -16,6 +22,8 @@ interface Props {
   allowClear?: boolean;
   multible?: boolean;
   numberOfLine?: number;
+  type?: KeyboardTypeOptions;
+  isPassword?: boolean;
 }
 
 const InputComponent = (props: Props) => {
@@ -29,7 +37,11 @@ const InputComponent = (props: Props) => {
     allowClear,
     multible,
     numberOfLine,
+    type,
+    isPassword,
   } = props;
+
+  const [showPass, setShowPass] = useState(false);
 
   return (
     <View style={{marginBottom: 16}}>
@@ -63,6 +75,9 @@ const InputComponent = (props: Props) => {
             onChangeText={val => onChange(val)}
             multiline={multible}
             numberOfLines={numberOfLine}
+            keyboardType={type}
+            secureTextEntry={isPassword ? !showPass : false}
+            autoCapitalize="none"
           />
         </View>
         {affix && affix}
@@ -70,6 +85,16 @@ const InputComponent = (props: Props) => {
         {allowClear && value && (
           <TouchableOpacity onPress={() => onChange('')}>
             <AntDesign name="close" size={20} color={colors.white} />
+          </TouchableOpacity>
+        )}
+
+        {isPassword && (
+          <TouchableOpacity onPress={() => setShowPass(!showPass)}>
+            {showPass ? (
+              <EyeSlash size={20} color={colors.desc} />
+            ) : (
+              <Eye size={20} color={colors.desc} />
+            )}
           </TouchableOpacity>
         )}
       </RowComponent>
