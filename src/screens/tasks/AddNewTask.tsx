@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
-import Container from '../../components/Container';
-import TextComponent from '../../components/TextComponent';
-import {TaskModel} from '../../models/TaskModel';
-import SectionComponent from '../../components/SectionComponent';
-import InputComponent from '../../components/InputComponent';
-import {User} from 'iconsax-react-native';
-import {colors} from '../../constants/colors';
 import {Button, View} from 'react-native';
+import Container from '../../components/Container';
 import DateTimePickerComponent from '../../components/DateTimePickerComponent';
+import InputComponent from '../../components/InputComponent';
 import RowComponent from '../../components/RowComponent';
+import SectionComponent from '../../components/SectionComponent';
 import SpaceComponent from '../../components/SpaceComponent';
+import {TaskModel} from '../../models/TaskModel';
 
 const initValue: TaskModel = {
   title: '',
