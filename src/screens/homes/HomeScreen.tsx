@@ -2,6 +2,7 @@ import {
   Add,
   Edit2,
   Element4,
+  Logout,
   Notification,
   SearchNormal1,
 } from 'iconsax-react-native';
@@ -22,11 +23,14 @@ import TitleComponent from '../../components/TitleComponent';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
 import {globalStyles} from '../../styles/globalStyles';
+import auth from '@react-native-firebase/auth';
 
 const HomeScreen = ({navigation}: any) => {
+  const user = auth().currentUser;
+
   return (
     <View style={{flex: 1}}>
-      <Container>
+      <Container isScroll>
         <SectionComponent>
           <RowComponent justify="space-between">
             <Element4 size={24} color={colors.desc} />
@@ -34,8 +38,15 @@ const HomeScreen = ({navigation}: any) => {
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
-          <TextComponent text="Hi, Jason" />
-          <TitleComponent text="Be Productive today" />
+          <RowComponent>
+            <View style={{flex: 1}}>
+              <TextComponent text={`hi, ${user?.email}`} />
+              <TitleComponent text="Be Productive today" />
+            </View>
+            <TouchableOpacity onPress={async () => auth().signOut()}>
+              <Logout size={22} color="coral" />
+            </TouchableOpacity>
+          </RowComponent>
         </SectionComponent>
         <SectionComponent>
           <RowComponent
