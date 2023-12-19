@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, View} from 'react-native';
 import Container from '../../components/Container';
 import DateTimePickerComponent from '../../components/DateTimePickerComponent';
@@ -7,6 +7,9 @@ import RowComponent from '../../components/RowComponent';
 import SectionComponent from '../../components/SectionComponent';
 import SpaceComponent from '../../components/SpaceComponent';
 import {TaskModel} from '../../models/TaskModel';
+import DropdownPicker from '../../components/DropdownPicker';
+import {SelectModel} from '../../models/SelectModel';
+import firestore from '@react-native-firebase/firestore';
 
 const initValue: TaskModel = {
   title: '',
@@ -20,8 +23,34 @@ const initValue: TaskModel = {
 
 const AddNewTask = ({navigation}: any) => {
   const [taskDetail, setTaskDetail] = useState<TaskModel>(initValue);
+  const [userSelect, setUserSelect] = useState<SelectModel[]>([]);
 
-  const handleChangeValue = (id: string, value: string | Date) => {
+  useEffect(() => {
+    firestore()
+      .collection('users')
+      .get()
+      .then(snap => {
+        if (snap.empty) {
+          console.log(`data users not found!!!`);
+        } else {
+          const items: SelectModel[] = [];
+
+          snap.forEach(item => {
+            items.push({
+              label: item.data().name,
+              value: item.id,
+            });
+          });
+
+          setUserSelect(items);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleChangeValue = (id: string, value: string | string[] | Date) => {
     const item: any = {...taskDetail};
 
     item[`${id}`] = value;
@@ -80,6 +109,14 @@ const AddNewTask = ({navigation}: any) => {
             />
           </View>
         </RowComponent>
+
+        <DropdownPicker
+          title="Members"
+          items={userSelect}
+          selected={taskDetail.uids}
+          onSelect={(val: string[]) => handleChangeValue('uids', val)}
+          multible
+        />
       </SectionComponent>
       <SectionComponent>
         <Button title="Save" onPress={handleAddNewTask} />

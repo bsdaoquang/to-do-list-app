@@ -44,7 +44,7 @@ const InputComponent = (props: Props) => {
           globalStyles.inputContainer,
           {
             marginTop: title ? 8 : 0,
-            minHeight: multible && numberOfLine ? 32 * numberOfLine : 32,
+            minHeight: multible && numberOfLine ? 34 * numberOfLine : 34,
             paddingVertical: 14,
             paddingHorizontal: 10,
             alignItems: 'flex-start',
@@ -58,10 +58,7 @@ const InputComponent = (props: Props) => {
             paddingRight: affix ? 8 : 0,
           }}>
           <TextInput
-            style={[
-              globalStyles.text,
-              {margin: 0, padding: 0, paddingVertical: 6, flex: 1},
-            ]}
+            style={[globalStyles.text, {margin: 0, padding: 0, flex: 1}]}
             placeholder={placeholder ?? ''}
             placeholderTextColor={'#676767'}
             value={value}
