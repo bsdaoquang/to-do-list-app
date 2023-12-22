@@ -8,8 +8,8 @@ import Router from './src/routers/Router';
 const App = () => {
   return (
     <>
-      <SafeAreaView style={{flex: 1, backgroundColor: colors.bgColor}}>
-        <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} />
+      <SafeAreaView style={{flex: 1, backgroundColor: '#f3f3f3'}}>
+        {/* <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} /> */}
         <NavigationContainer>
           <Router />
         </NavigationContainer>
