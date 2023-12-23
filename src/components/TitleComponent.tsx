@@ -39,6 +39,7 @@ const TitleComponent = (props: Props) => {
           lineHeight: height ? height : size ? size + 4 : 20,
           color: color ? color : colors.text,
           flex: flex ?? 0,
+          marginBottom: 8,
         },
         styles,
       ]}

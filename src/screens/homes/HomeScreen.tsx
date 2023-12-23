@@ -130,7 +130,7 @@ const HomeScreen = ({navigation}: any) => {
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
-          <TextComponent
+          <TitleComponent
             flex={1}
             font={fontFamilies.bold}
             size={21}
