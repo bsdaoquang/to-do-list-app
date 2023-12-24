@@ -1,12 +1,17 @@
 import React from 'react';
-import RowComponent from './RowComponent';
 import {Image, View} from 'react-native';
-import TextComponent from './TextComponent';
 import {colors} from '../constants/colors';
-import {globalStyles} from '../styles/globalStyles';
 import {fontFamilies} from '../constants/fontFamilies';
+import RowComponent from './RowComponent';
+import TextComponent from './TextComponent';
 
-const AvatarGroup = () => {
+interface Props {
+  uids: string[];
+}
+
+const AvatarGroup = (props: Props) => {
+  const {uids} = props;
+
   const uidsLength = 10;
   const imageUrl = `https://gamek.mediacdn.vn/133514250583805952/2022/5/18/photo-1-16528608926331302726659.jpg`;
   const imageStyle = {

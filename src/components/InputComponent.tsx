@@ -58,11 +58,8 @@ const InputComponent = (props: Props) => {
             paddingRight: affix ? 8 : 0,
           }}>
           <TextInput
-            style={[
-              globalStyles.text,
-              {margin: 0, padding: 0, paddingVertical: 10, flex: 1},
-            ]}
-            placeholder={placeholder ?? ''}
+            style={[globalStyles.text, {margin: 0, padding: 0}]}
+            placeholder={placeholder ?? title ?? ''}
             placeholderTextColor={'#676767'}
             value={value}
             onChangeText={val => onChange(val)}

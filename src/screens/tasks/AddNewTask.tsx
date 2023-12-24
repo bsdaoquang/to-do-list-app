@@ -24,9 +24,9 @@ import storage from '@react-native-firebase/storage';
 const initValue: TaskModel = {
   title: '',
   desctiption: '',
-  dueDate: new Date(),
-  start: new Date(),
-  end: new Date(),
+  dueDate: undefined,
+  start: undefined,
+  end: undefined,
   uids: [],
   fileUrls: [],
 };

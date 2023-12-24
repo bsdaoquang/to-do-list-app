@@ -8,12 +8,13 @@ import {ArrowDown2} from 'iconsax-react-native';
 import {globalStyles} from '../styles/globalStyles';
 import SpaceComponent from './SpaceComponent';
 import DatePicker from 'react-native-date-picker';
+import {Timestamp} from 'react-native-reanimated/lib/typescript/reanimated2/commonTypes';
 
 interface Props {
   type?: 'date' | 'time' | 'datetime';
   title?: string;
   placeholder?: string;
-  selected?: Date;
+  selected?: any;
   onSelect: (val: Date) => void;
 }
 

@@ -6,8 +6,8 @@ import {
   Notification,
   SearchNormal1,
 } from 'iconsax-react-native';
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import AvatarGroup from '../../components/AvatarGroup';
 import CardComponent from '../../components/CardComponent';
 import CardImageConponent from '../../components/CardImageConponent';
@@ -24,9 +24,43 @@ import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
 import {globalStyles} from '../../styles/globalStyles';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import {TaskModel} from '../../models/TaskModel';
 
 const HomeScreen = ({navigation}: any) => {
   const user = auth().currentUser;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [tasks, setTasks] = useState<TaskModel[]>([]);
+
+  useEffect(() => {
+    getNewTasks();
+  }, []);
+
+  const getNewTasks = () => {
+    setIsLoading(true);
+
+    firestore()
+      .collection('tasks')
+      .orderBy('dueDate')
+      .limitToLast(3)
+      .onSnapshot(snap => {
+        if (snap.empty) {
+          console.log(`tasks not found!`);
+        } else {
+          const items: TaskModel[] = [];
+          snap.forEach((item: any) => {
+            items.push({
+              id: item.id,
+              ...item.data(),
+            });
+          });
+
+          setIsLoading(false);
+          setTasks(items);
+        }
+      });
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -76,59 +110,78 @@ const HomeScreen = ({navigation}: any) => {
             </RowComponent>
           </CardComponent>
         </SectionComponent>
-        <SectionComponent>
-          <RowComponent styles={{alignItems: 'flex-start'}}>
-            <View style={{flex: 1}}>
-              <CardImageConponent>
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={globalStyles.iconContainer}>
-                  <Edit2 size={20} color={colors.white} />
-                </TouchableOpacity>
-                <TitleComponent text="UX Design" />
-                <TextComponent text="Task management mobile app" size={13} />
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : tasks.length > 0 ? (
+          <SectionComponent>
+            <RowComponent styles={{alignItems: 'flex-start'}}>
+              <View style={{flex: 1}}>
+                {tasks[1] && (
+                  <CardImageConponent>
+                    <TouchableOpacity
+                      onPress={() => {}}
+                      style={globalStyles.iconContainer}>
+                      <Edit2 size={20} color={colors.white} />
+                    </TouchableOpacity>
+                    <TitleComponent text={tasks[0].title} />
+                    <TextComponent text={tasks[0].desctiption} size={13} />
 
-                <View style={{marginVertical: 28}}>
-                  <AvatarGroup />
-                  <ProgressBarComponent
-                    percent="70%"
-                    color="#0AACFF"
-                    size="large"
-                  />
-                </View>
-                <TextComponent
-                  text="Due, 2023 Match 03"
-                  size={12}
-                  color={colors.desc}
-                />
-              </CardImageConponent>
-            </View>
-            <SpaceComponent width={16} />
-            <View style={{flex: 1}}>
-              <CardImageConponent color="rgba(33, 150, 243, 0.9)">
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={globalStyles.iconContainer}>
-                  <Edit2 size={20} color={colors.white} />
-                </TouchableOpacity>
-                <TitleComponent text="API Payment" size={18} />
-                <AvatarGroup />
-                <ProgressBarComponent percent="40%" color="#A2F068" />
-              </CardImageConponent>
+                    <View style={{marginVertical: 28}}>
+                      <AvatarGroup uids={tasks[0].uids} />
+                      {tasks[0].progress && (
+                        <ProgressBarComponent
+                          percent="70%"
+                          color="#0AACFF"
+                          size="large"
+                        />
+                      )}
+                    </View>
+                    {tasks[0].dueDate && (
+                      <TextComponent
+                        text={`Due ${new Date(tasks[0].dueDate.toDate())}`}
+                        size={12}
+                        color={colors.desc}
+                      />
+                    )}
+                  </CardImageConponent>
+                )}
+              </View>
+              <SpaceComponent width={16} />
+              <View style={{flex: 1}}>
+                {tasks[1] && (
+                  <CardImageConponent color="rgba(33, 150, 243, 0.9)">
+                    <TouchableOpacity
+                      onPress={() => {}}
+                      style={globalStyles.iconContainer}>
+                      <Edit2 size={20} color={colors.white} />
+                    </TouchableOpacity>
+                    <TitleComponent text={tasks[1].title} size={18} />
+                    {tasks[1].uids && <AvatarGroup uids={tasks[1].uids} />}
+                    {tasks[1].progress && (
+                      <ProgressBarComponent percent="40%" color="#A2F068" />
+                    )}
+                  </CardImageConponent>
+                )}
 
-              <SpaceComponent height={16} />
-              <CardImageConponent color="rgba(18, 181, 22, 0.9)">
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={globalStyles.iconContainer}>
-                  <Edit2 size={20} color={colors.white} />
-                </TouchableOpacity>
-                <TitleComponent text="Update work" />
-                <TextComponent text="Revision home page" size={13} />
-              </CardImageConponent>
-            </View>
-          </RowComponent>
-        </SectionComponent>
+                <SpaceComponent height={16} />
+                {tasks[2] && (
+                  <CardImageConponent color="rgba(18, 181, 22, 0.9)">
+                    <TouchableOpacity
+                      onPress={() => {}}
+                      style={globalStyles.iconContainer}>
+                      <Edit2 size={20} color={colors.white} />
+                    </TouchableOpacity>
+                    <TitleComponent text={tasks[2].title} />
+                    <TextComponent text={tasks[2].desctiption} size={13} />
+                  </CardImageConponent>
+                )}
+              </View>
+            </RowComponent>
+          </SectionComponent>
+        ) : (
+          <></>
+        )}
+
         <SectionComponent>
           <TitleComponent
             flex={1}
