@@ -31,7 +31,9 @@ const initValue: TaskModel = {
   fileUrls: [],
 };
 
-const AddNewTask = ({navigation}: any) => {
+const AddNewTask = ({navigation, route}: any) => {
+  const {editable, task}: {editable: boolean; task?: TaskModel} = route.params;
+
   const [taskDetail, setTaskDetail] = useState<TaskModel>(initValue);
   const [usersSelect, setUsersSelect] = useState<SelectModel[]>([]);
   const [attachments, setAttachments] = useState<DocumentPickerResponse[]>([]);

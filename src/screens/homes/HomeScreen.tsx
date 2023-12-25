@@ -26,6 +26,7 @@ import {globalStyles} from '../../styles/globalStyles';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {TaskModel} from '../../models/TaskModel';
+import {HandleDateTime} from '../../utils/handeDateTime';
 
 const HomeScreen = ({navigation}: any) => {
   const user = auth().currentUser;
@@ -117,9 +118,19 @@ const HomeScreen = ({navigation}: any) => {
             <RowComponent styles={{alignItems: 'flex-start'}}>
               <View style={{flex: 1}}>
                 {tasks[1] && (
-                  <CardImageConponent>
+                  <CardImageConponent
+                    onPress={() =>
+                      navigation.navigate('TaskDetail', {
+                        id: tasks[0].id,
+                      })
+                    }>
                     <TouchableOpacity
-                      onPress={() => {}}
+                      onPress={() =>
+                        navigation.navigate('AddNewTask', {
+                          editable: true,
+                          task: tasks[0],
+                        })
+                      }
                       style={globalStyles.iconContainer}>
                       <Edit2 size={20} color={colors.white} />
                     </TouchableOpacity>
@@ -138,7 +149,9 @@ const HomeScreen = ({navigation}: any) => {
                     </View>
                     {tasks[0].dueDate && (
                       <TextComponent
-                        text={`Due ${new Date(tasks[0].dueDate.toDate())}`}
+                        text={`Due ${HandleDateTime.DateString(
+                          tasks[0].dueDate.seconds,
+                        )}`}
                         size={12}
                         color={colors.desc}
                       />
@@ -149,9 +162,21 @@ const HomeScreen = ({navigation}: any) => {
               <SpaceComponent width={16} />
               <View style={{flex: 1}}>
                 {tasks[1] && (
-                  <CardImageConponent color="rgba(33, 150, 243, 0.9)">
+                  <CardImageConponent
+                    onPress={() =>
+                      navigation.navigate('TaskDetail', {
+                        id: tasks[1].id,
+                        color: 'rgba(33, 150, 243, 0.9)',
+                      })
+                    }
+                    color="rgba(33, 150, 243, 0.9)">
                     <TouchableOpacity
-                      onPress={() => {}}
+                      onPress={() =>
+                        navigation.navigate('AddNewTask', {
+                          editable: true,
+                          task: tasks[1],
+                        })
+                      }
                       style={globalStyles.iconContainer}>
                       <Edit2 size={20} color={colors.white} />
                     </TouchableOpacity>
@@ -165,9 +190,21 @@ const HomeScreen = ({navigation}: any) => {
 
                 <SpaceComponent height={16} />
                 {tasks[2] && (
-                  <CardImageConponent color="rgba(18, 181, 22, 0.9)">
+                  <CardImageConponent
+                    onPress={() =>
+                      navigation.navigate('TaskDetail', {
+                        id: tasks[2].id,
+                        color: 'rgba(18, 181, 22, 0.9)',
+                      })
+                    }
+                    color="rgba(18, 181, 22, 0.9)">
                     <TouchableOpacity
-                      onPress={() => {}}
+                      onPress={() =>
+                        navigation.navigate('AddNewTask', {
+                          editable: true,
+                          task: tasks[2],
+                        })
+                      }
                       style={globalStyles.iconContainer}>
                       <Edit2 size={20} color={colors.white} />
                     </TouchableOpacity>
