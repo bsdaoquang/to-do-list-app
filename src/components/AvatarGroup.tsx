@@ -31,15 +31,14 @@ const AvatarGroup = (props: Props) => {
         .doc(`users/${id}`)
         .get()
         .then((snap: any) => {
+          const items: any = [...usersName];
           if (snap.exists) {
-            setUsersName([
-              ...usersName,
-              {
-                name: snap.data().name,
-                imgUrl: snap.data().imgUrl ?? '',
-              },
-            ]);
+            items.push({
+              name: snap.data().name,
+              imgUrl: snap.data().imgUrl ?? '',
+            });
           }
+          setUsersName(items);
         })
         .catch(error => {
           console.log(error);
@@ -80,7 +79,7 @@ const AvatarGroup = (props: Props) => {
               <Text
                 style={[
                   globalStyles.text,
-                  {fontFamily: fontFamilies.bold, fontSize: 16},
+                  {fontFamily: fontFamilies.bold, fontSize: 14},
                 ]}>
                 {item.name.substring(0, 1)}
               </Text>
