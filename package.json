@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "buildAAB": "npx react-native build-android --mode=release",
+    "buildAPK": "npm run android -- --mode=release"
   },
   "dependencies": {
     "@react-native-firebase/app": "^18.7.3",
