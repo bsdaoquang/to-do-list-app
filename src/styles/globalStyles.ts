@@ -20,6 +20,10 @@ export const globalStyles = StyleSheet.create({
     color: colors.text,
   },
 
+  documentImg: {
+    marginHorizontal: 4,
+  },
+
   inputContainer: {
     backgroundColor: colors.gray,
     borderRadius: 12,

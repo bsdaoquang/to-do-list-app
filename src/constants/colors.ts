@@ -7,4 +7,5 @@ export const colors = {
   blue: '#3618e0',
   white: '#fafafa',
   error: '#e74c3c',
+  success: '#00733B',
 };

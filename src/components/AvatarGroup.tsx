@@ -6,6 +6,7 @@ import RowComponent from './RowComponent';
 import TextComponent from './TextComponent';
 import firestore from '@react-native-firebase/firestore';
 import {globalStyles} from '../styles/globalStyles';
+import AvatarComponent from './AvatarComponent';
 
 interface Props {
   uids: string[];
@@ -26,24 +27,24 @@ const AvatarGroup = (props: Props) => {
   }, [uids]);
 
   const getUserAvata = async () => {
+    const items: any = [...usersName];
     uids.forEach(async id => {
       await firestore()
         .doc(`users/${id}`)
         .get()
         .then((snap: any) => {
-          const items: any = [...usersName];
           if (snap.exists) {
             items.push({
               name: snap.data().name,
               imgUrl: snap.data().imgUrl ?? '',
             });
           }
-          setUsersName(items);
         })
         .catch(error => {
           console.log(error);
         });
     });
+    setUsersName(items);
   };
 
   const imageStyle = {
@@ -55,36 +56,9 @@ const AvatarGroup = (props: Props) => {
   };
   return (
     <RowComponent styles={{justifyContent: 'flex-start'}}>
-      {usersName.map(
+      {uids.map(
         (item, index) =>
-          index < 3 &&
-          (item.imgUrl ? (
-            <Image
-              source={{uri: item.imgUrl}}
-              key={`image${index}`}
-              style={[imageStyle, {marginLeft: index > 0 ? -10 : 0}]}
-            />
-          ) : (
-            <View
-              key={`image${index}`}
-              style={[
-                imageStyle,
-                {
-                  marginLeft: index > 0 ? -10 : 0,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: colors.gray2,
-                },
-              ]}>
-              <Text
-                style={[
-                  globalStyles.text,
-                  {fontFamily: fontFamilies.bold, fontSize: 14},
-                ]}>
-                {item.name.substring(0, 1)}
-              </Text>
-            </View>
-          )),
+          index < 3 && <AvatarComponent uid={item} index={index} />,
       )}
 
       {uids.length > 3 && (
