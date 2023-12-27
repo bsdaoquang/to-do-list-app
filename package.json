@@ -12,6 +12,7 @@
     "buildAPK": "npm run android -- --mode=release"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "^2.3.1",
     "@react-native-firebase/app": "^18.7.3",
     "@react-native-firebase/auth": "^18.7.3",
     "@react-native-firebase/firestore": "^18.7.3",

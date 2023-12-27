@@ -10,5 +10,5 @@ export interface TaskModel {
   uids: string[];
   color?: string;
   fileUrls: string[];
-  progress?: string;
+  progress?: number;
 }

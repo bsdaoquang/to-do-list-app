@@ -143,13 +143,14 @@ const HomeScreen = ({navigation}: any) => {
 
                     <View style={{marginVertical: 28}}>
                       <AvatarGroup uids={tasks[0].uids} />
-                      {tasks[0].progress && (
+                      {tasks[0].progress &&
+                      (tasks[0].progress as number) >= 0 ? (
                         <ProgressBarComponent
-                          percent="70%"
+                          percent={`${Math.floor(tasks[0].progress * 100)}%`}
                           color="#0AACFF"
                           size="large"
                         />
-                      )}
+                      ) : null}
                     </View>
                     {tasks[0].dueDate && (
                       <TextComponent
@@ -187,7 +188,10 @@ const HomeScreen = ({navigation}: any) => {
                     <TitleComponent text={tasks[1].title} size={18} />
                     {tasks[1].uids && <AvatarGroup uids={tasks[1].uids} />}
                     {tasks[1].progress && (
-                      <ProgressBarComponent percent="40%" color="#A2F068" />
+                      <ProgressBarComponent
+                        percent={`${Math.floor(tasks[1].progress * 100)}%`}
+                        color="#A2F068"
+                      />
                     )}
                   </CardImageConponent>
                 )}
