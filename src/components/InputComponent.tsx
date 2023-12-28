@@ -1,5 +1,5 @@
 import React, {ReactNode, useState} from 'react';
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import {Platform, TextInput, TouchableOpacity, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../constants/colors';
 import {globalStyles} from '../styles/globalStyles';
@@ -45,9 +45,9 @@ const InputComponent = (props: Props) => {
           {
             marginTop: title ? 8 : 0,
             minHeight: multible && numberOfLine ? 32 * numberOfLine : 32,
-            paddingVertical: 16,
+            paddingVertical: Platform.OS === 'ios' ? 16 : 12,
             paddingHorizontal: 10,
-            alignItems: 'flex-start',
+            alignItems: multible ? 'flex-start' : 'center',
           },
         ]}>
         {prefix && prefix}

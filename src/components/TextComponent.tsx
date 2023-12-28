@@ -34,7 +34,6 @@ const TextComponent = (props: Props) => {
           flex: flex ?? 1,
           fontFamily: font ?? fontFamilies.regular,
           fontSize: size ?? 14,
-          textAlign: 'justify',
           color: color ?? colors.desc,
         },
         styles,

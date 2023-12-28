@@ -9,6 +9,13 @@ export interface TaskModel {
   end?: FirebaseFirestoreTypes.Timestamp;
   uids: string[];
   color?: string;
-  fileUrls: string[];
+  attachments: Attachment[];
   progress?: number;
+}
+
+export interface Attachment {
+  name: string;
+  url: string;
+  size: number;
+  type?: string;
 }

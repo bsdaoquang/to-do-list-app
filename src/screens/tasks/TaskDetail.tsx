@@ -5,6 +5,7 @@ import {
   ArrowLeft2,
   CalendarEdit,
   Clock,
+  DocumentCloud,
   TickCircle,
 } from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
@@ -27,16 +28,18 @@ import TextComponent from '../../components/TextComponent';
 import TitleComponent from '../../components/TitleComponent';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
-import {TaskModel} from '../../models/TaskModel';
+import {Attachment, TaskModel} from '../../models/TaskModel';
 import {globalStyles} from '../../styles/globalStyles';
 import {HandleDateTime} from '../../utils/handeDateTime';
 import ButtonComponent from '../../components/ButtonComponent';
+import UploadFileComponent from '../../components/UploadFileComponent';
+import {calcFileSize} from '../../utils/calcFileSize';
 
 const TaskDetail = ({navigation, route}: any) => {
   const {id, color}: {id: string; color?: string} = route.params;
   const [taskDetail, setTaskDetail] = useState<TaskModel>();
   const [progress, setProgress] = useState(0);
-  const [fileUrls, setFileUrls] = useState<string[]>([]);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [subTasks, setSubTasks] = useState<any[]>([]);
   const [isChanged, setIsChanged] = useState(false);
 
@@ -47,20 +50,20 @@ const TaskDetail = ({navigation, route}: any) => {
   useEffect(() => {
     if (taskDetail) {
       setProgress(taskDetail.progress ?? 0);
-      setFileUrls(taskDetail.fileUrls);
+      setAttachments(taskDetail.attachments);
     }
   }, [taskDetail]);
 
   useEffect(() => {
     if (
       progress !== taskDetail?.progress ||
-      fileUrls.length !== taskDetail.fileUrls.length
+      attachments.length !== taskDetail.attachments.length
     ) {
       setIsChanged(true);
     } else {
       setIsChanged(false);
     }
-  }, [progress, fileUrls, taskDetail]);
+  }, [progress, taskDetail, attachments]);
 
   const getTaskDetail = () => [
     firestore()
@@ -76,7 +79,7 @@ const TaskDetail = ({navigation, route}: any) => {
   ];
 
   const handleUpdateTask = async () => {
-    const data = {...taskDetail, progress, fileUrls, updatedAt: Date.now()};
+    const data = {...taskDetail, progress, attachments, updatedAt: Date.now()};
 
     await firestore()
       .doc(`tasks/${id}`)
@@ -90,7 +93,7 @@ const TaskDetail = ({navigation, route}: any) => {
   return taskDetail ? (
     <>
       <ScrollView style={{flex: 1, backgroundColor: colors.bgColor}}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar hidden />
         <SectionComponent
           color={color ?? 'rgba(113, 77, 217, 0.9)'}
           styles={{
@@ -125,7 +128,6 @@ const TaskDetail = ({navigation, route}: any) => {
                     text={`${HandleDateTime.GetHour(
                       taskDetail.start?.toDate(),
                     )} - ${HandleDateTime.GetHour(taskDetail.end?.toDate())}`}
-                    size={16}
                   />
                 )}
               </RowComponent>
@@ -141,7 +143,6 @@ const TaskDetail = ({navigation, route}: any) => {
 
                   <TextComponent
                     flex={0}
-                    size={16}
                     text={
                       HandleDateTime.DateString(taskDetail.dueDate.toDate()) ??
                       ''
@@ -170,36 +171,31 @@ const TaskDetail = ({navigation, route}: any) => {
               borderRadius: 12,
               marginTop: 12,
             }}>
-            <TextComponent text={taskDetail.desctiption} />
+            <TextComponent
+              text={taskDetail.desctiption}
+              styles={{textAlign: 'justify'}}
+            />
           </CardComponent>
         </SectionComponent>
         <SectionComponent>
-          <CardComponent>
-            <RowComponent>
-              <TextComponent text="Files & Links" flex={0} />
-              <RowComponent styles={{flex: 1}}>
-                <Ionicons
-                  name="document-text"
-                  size={38}
-                  color={'#0263D1'}
-                  style={globalStyles.documentImg}
-                />
-                <AntDesign
-                  name="pdffile1"
-                  size={32}
-                  color={'#E5252A'}
-                  style={globalStyles.documentImg}
-                />
-                <MaterialCommunityIcons
-                  style={globalStyles.documentImg}
-                  name="file-excel"
-                  size={38}
-                  color={'#00733B'}
-                />
-                <AntDesign name="addfile" size={32} color={colors.white} />
-              </RowComponent>
-            </RowComponent>
-          </CardComponent>
+          <RowComponent>
+            <TitleComponent text="Files & Links" flex={1} />
+            <UploadFileComponent
+              onUpload={file => file && setAttachments([...attachments, file])}
+            />
+          </RowComponent>
+          {attachments.map((item, index) => (
+            <View
+              style={{justifyContent: 'flex-start', marginBottom: 8}}
+              key={`attachment${index}`}>
+              <TextComponent flex={0} text={item.name} />
+              <TextComponent
+                flex={0}
+                text={calcFileSize(item.size)}
+                size={12}
+              />
+            </View>
+          ))}
         </SectionComponent>
         <SectionComponent>
           <RowComponent>
@@ -263,7 +259,7 @@ const TaskDetail = ({navigation, route}: any) => {
             </TouchableOpacity>
           </RowComponent>
           <SpaceComponent height={12} />
-          {Array.from({length: 3}).map((item, index) => (
+          {/* {Array.from({length: 3}).map((item, index) => (
             <CardComponent key={`subtask${index}`} styles={{marginBottom: 12}}>
               <RowComponent>
                 <TickCircle variant="Bold" color={colors.success} size={22} />
@@ -271,7 +267,7 @@ const TaskDetail = ({navigation, route}: any) => {
                 <TextComponent text="fafa" />
               </RowComponent>
             </CardComponent>
-          ))}
+          ))} */}
         </SectionComponent>
       </ScrollView>
       {isChanged && (
