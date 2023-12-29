@@ -18,6 +18,7 @@ interface Props {
   multible?: boolean;
   numberOfLine?: number;
   isPassword?: boolean;
+  color?: string;
 }
 
 const InputComponent = (props: Props) => {
@@ -32,6 +33,7 @@ const InputComponent = (props: Props) => {
     multible,
     numberOfLine,
     isPassword,
+    color,
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -48,6 +50,7 @@ const InputComponent = (props: Props) => {
             paddingVertical: Platform.OS === 'ios' ? 16 : 12,
             paddingHorizontal: 10,
             alignItems: multible ? 'flex-start' : 'center',
+            backgroundColor: color ?? colors.gray,
           },
         ]}>
         {prefix && prefix}

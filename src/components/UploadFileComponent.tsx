@@ -83,7 +83,7 @@ const UploadFileComponent = (props: Props) => {
           DocumentPicker.pick({
             allowMultiSelection: false,
             type: [
-              'application/pdf',
+              DocumentPicker.types.pdf,
               DocumentPicker.types.doc,
               DocumentPicker.types.xls,
             ],

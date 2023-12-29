@@ -58,7 +58,7 @@ const AvatarGroup = (props: Props) => {
     <RowComponent styles={{justifyContent: 'flex-start'}}>
       {uids.map(
         (item, index) =>
-          index < 3 && <AvatarComponent uid={item} index={index} />,
+          index < 3 && <AvatarComponent uid={item} index={index} key={item} />,
       )}
 
       {uids.length > 3 && (
