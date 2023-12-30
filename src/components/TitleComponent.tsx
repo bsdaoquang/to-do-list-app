@@ -14,10 +14,11 @@ interface Props {
   color?: string;
   height?: number;
   flex?: number;
+  line?: number;
 }
 
 const TitleComponent = (props: Props) => {
-  const {text, font, size, color, styles, height, flex} = props;
+  const {text, font, size, color, styles, height, flex, line} = props;
   const weight: any =
     Platform.OS === 'ios'
       ? font
@@ -28,6 +29,7 @@ const TitleComponent = (props: Props) => {
       : {};
   return (
     <TextComponent
+      line={line}
       size={size ?? 20}
       font={font ?? fontFamilies.semiBold}
       styles={[

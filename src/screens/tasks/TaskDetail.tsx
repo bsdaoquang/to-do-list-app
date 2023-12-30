@@ -6,6 +6,7 @@ import {
   CalendarEdit,
   Clock,
   TickCircle,
+  TickSquare,
 } from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -39,6 +40,7 @@ const TaskDetail = ({navigation, route}: any) => {
   const [subTasks, setSubTasks] = useState<SubTask[]>([]);
   const [isChanged, setIsChanged] = useState(false);
   const [isVisibleModalSubTask, setIsVisibleModalSubTask] = useState(false);
+  const [isUrgent, setIsUrgent] = useState(false);
 
   useEffect(() => {
     getTaskDetail();
@@ -49,6 +51,7 @@ const TaskDetail = ({navigation, route}: any) => {
     if (taskDetail) {
       setProgress(taskDetail.progress ?? 0);
       setAttachments(taskDetail.attachments);
+      setIsUrgent(taskDetail.isUrgent);
     }
   }, [taskDetail]);
 
@@ -85,6 +88,13 @@ const TaskDetail = ({navigation, route}: any) => {
         }
       }),
   ];
+
+  const handleUpdateUrgentState = () => {
+    firestore().doc(`tasks/${id}`).update({
+      isUrgent: !isUrgent,
+      updatedAt: Date.now(),
+    });
+  };
 
   const getSubTaskById = () => {
     firestore()
@@ -148,7 +158,12 @@ const TaskDetail = ({navigation, route}: any) => {
                 style={{marginTop: -8, marginRight: 12}}
               />
             </TouchableOpacity>
-            <TitleComponent flex={1} text={taskDetail.title} size={22} />
+            <TitleComponent
+              line={1}
+              flex={1}
+              text={taskDetail.title}
+              size={22}
+            />
           </RowComponent>
           <View style={{marginTop: 20}}>
             <TextComponent text="Due date" />
@@ -214,6 +229,22 @@ const TaskDetail = ({navigation, route}: any) => {
               styles={{textAlign: 'justify'}}
             />
           </CardComponent>
+        </SectionComponent>
+        <SectionComponent>
+          <RowComponent onPress={handleUpdateUrgentState}>
+            <TickSquare
+              variant={isUrgent ? 'Bold' : 'Outline'}
+              size={24}
+              color={colors.white}
+            />
+            <SpaceComponent width={8} />
+            <TextComponent
+              flex={1}
+              text={`Is Urgent`}
+              font={fontFamilies.bold}
+              size={18}
+            />
+          </RowComponent>
         </SectionComponent>
         <SectionComponent>
           <RowComponent>

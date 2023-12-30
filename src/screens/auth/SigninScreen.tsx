@@ -12,6 +12,7 @@ import SpaceComponent from '../../components/SpaceComponent';
 import {globalStyles} from '../../styles/globalStyles';
 import auth from '@react-native-firebase/auth';
 import TextComponent from '../../components/TextComponent';
+import {HandleUser} from '../../utils/handleUser';
 
 const SigninScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
@@ -35,6 +36,7 @@ const SigninScreen = ({navigation}: any) => {
         .createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
           const user = userCredential.user;
+          HandleUser.SaveToDatabase(user);
           setIsLoading(false);
         })
         .catch((error: any) => {

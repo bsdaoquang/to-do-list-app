@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import {colors} from '../constants/colors';
 import {globalStyles} from '../styles/globalStyles';
 import {fontFamilies} from '../constants/fontFamilies';
+import {UserDetail} from '../models/UserDetail';
 
 interface Props {
   uid: string;
@@ -13,7 +14,7 @@ interface Props {
 const AvatarComponent = (props: Props) => {
   const {uid, index} = props;
 
-  const [userDetail, setUserDetail] = useState<any>();
+  const [userDetail, setUserDetail] = useState<UserDetail>();
 
   useEffect(() => {
     firestore()
@@ -59,7 +60,7 @@ const AvatarComponent = (props: Props) => {
             globalStyles.text,
             {fontFamily: fontFamilies.bold, fontSize: 14},
           ]}>
-          {userDetail.name.substring(0, 1)}
+          {userDetail.displayName.substring(0, 1).toUpperCase()}
         </Text>
       </View>
     )
