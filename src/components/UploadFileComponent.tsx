@@ -41,10 +41,6 @@ const UploadFileComponent = (props: Props) => {
     }
   }, [attachmentFile]);
 
-  useEffect(() => {
-    console.log(progressUpload);
-  }, [progressUpload]);
-
   const handleUploadFileToStorage = () => {
     if (file) {
       setIsVisibelModalUpload(true);

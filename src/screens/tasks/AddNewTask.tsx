@@ -1,11 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
-import {AttachSquare} from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import DocumentPicker, {
-  DocumentPickerResponse,
-} from 'react-native-document-picker';
 import ButtonComponent from '../../components/ButtonComponent';
 import Container from '../../components/Container';
 import DateTimePickerComponent from '../../components/DateTimePickerComponent';
@@ -15,12 +10,10 @@ import RowComponent from '../../components/RowComponent';
 import SectionComponent from '../../components/SectionComponent';
 import SpaceComponent from '../../components/SpaceComponent';
 import TextComponent from '../../components/TextComponent';
-import TitleComponent from '../../components/TitleComponent';
-import {colors} from '../../constants/colors';
-import {SelectModel} from '../../models/SelectModel';
-import {Attachment, TaskModel} from '../../models/TaskModel';
 import UploadFileComponent from '../../components/UploadFileComponent';
 import {fontFamilies} from '../../constants/fontFamilies';
+import {SelectModel} from '../../models/SelectModel';
+import {Attachment, TaskModel} from '../../models/TaskModel';
 
 const initValue: TaskModel = {
   title: '',
@@ -30,6 +23,8 @@ const initValue: TaskModel = {
   end: undefined,
   uids: [],
   attachments: [],
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
 };
 
 const AddNewTask = ({navigation, route}: any) => {
@@ -80,6 +75,8 @@ const AddNewTask = ({navigation, route}: any) => {
     const data = {
       ...taskDetail,
       attachments,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
     };
 
     await firestore()

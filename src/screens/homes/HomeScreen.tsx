@@ -43,7 +43,7 @@ const HomeScreen = ({navigation}: any) => {
 
     firestore()
       .collection('tasks')
-      .orderBy('dueDate')
+      .orderBy('createdAt')
       .limitToLast(3)
       .onSnapshot(snap => {
         if (snap.empty) {
@@ -57,9 +57,9 @@ const HomeScreen = ({navigation}: any) => {
             });
           });
 
-          setIsLoading(false);
           setTasks(items);
         }
+        setIsLoading(false);
       });
   };
 
@@ -117,7 +117,7 @@ const HomeScreen = ({navigation}: any) => {
           <SectionComponent>
             <RowComponent styles={{alignItems: 'flex-start'}}>
               <View style={{flex: 1}}>
-                {tasks[1] && (
+                {tasks[0] && (
                   <CardImageConponent
                     onPress={() =>
                       navigation.navigate('TaskDetail', {

@@ -35,10 +35,6 @@ const SigninScreen = ({navigation}: any) => {
         .createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
           const user = userCredential.user;
-
-          console.log(user);
-          // save user to firestore
-
           setIsLoading(false);
         })
         .catch((error: any) => {
