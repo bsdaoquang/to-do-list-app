@@ -1,3 +1,5 @@
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import {
   Add,
   Edit2,
@@ -22,11 +24,10 @@ import TextComponent from '../../components/TextComponent';
 import TitleComponent from '../../components/TitleComponent';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
-import {globalStyles} from '../../styles/globalStyles';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import {TaskModel} from '../../models/TaskModel';
+import {globalStyles} from '../../styles/globalStyles';
 import {HandleDateTime} from '../../utils/handeDateTime';
+import TotalTasks from './components/TotalTasks';
 
 const HomeScreen = ({navigation}: any) => {
   const user = auth().currentUser;
@@ -110,35 +111,21 @@ const HomeScreen = ({navigation}: any) => {
         <SectionComponent>
           <RowComponent
             styles={[globalStyles.inputContainer]}
-            onPress={() => navigation.navigate('SearchScreen')}>
+            onPress={() => navigation.navigate('ListTasks')}>
             <TextComponent color="#696B6F" text="Search task" />
             <SearchNormal1 size={20} color={colors.desc} />
           </RowComponent>
         </SectionComponent>
-        <SectionComponent>
-          <CardComponent>
-            <RowComponent>
-              <View style={{flex: 1}}>
-                <TitleComponent text="Task progress" />
-                <TextComponent text="30/40 tasks done" />
-                <SpaceComponent height={12} />
-                <RowComponent justify="flex-start">
-                  <TagComponent
-                    text="Match 22"
-                    onPress={() => console.log('Say Hi!!!')}
-                  />
-                </RowComponent>
-              </View>
-              <View>
-                <CicularComponent value={80} />
-              </View>
-            </RowComponent>
-          </CardComponent>
-        </SectionComponent>
+        <TotalTasks />
         {isLoading ? (
           <ActivityIndicator />
         ) : tasks.length > 0 ? (
           <SectionComponent>
+            <RowComponent
+              onPress={() => navigation.navigate('ListTasks')}
+              styles={{paddingVertical: 16, justifyContent: 'flex-end'}}>
+              <TextComponent text="View all" flex={0} />
+            </RowComponent>
             <RowComponent styles={{alignItems: 'flex-start'}}>
               <View style={{flex: 1}}>
                 {tasks[0] && (
@@ -256,16 +243,18 @@ const HomeScreen = ({navigation}: any) => {
         )}
 
         <SectionComponent>
+          <TitleComponent
+            flex={1}
+            font={fontFamilies.bold}
+            size={21}
+            text="Urgents tasks"
+          />
           {urgentTask.length > 0 &&
             urgentTask.map(item => (
               <>
-                <TitleComponent
-                  flex={1}
-                  font={fontFamilies.bold}
-                  size={21}
-                  text="Urgents tasks"
-                />
-                <CardComponent key={`urgentTask${item.id}`}>
+                <CardComponent
+                  key={`urgentTask${item.id}`}
+                  styles={{marginBottom: 12}}>
                   <RowComponent>
                     <CicularComponent
                       value={item.progress ? item.progress * 100 : 0}

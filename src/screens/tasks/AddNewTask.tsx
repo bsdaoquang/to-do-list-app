@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import React, {useEffect, useState} from 'react';
-import {Alert, View} from 'react-native';
+import {Alert, Button, View} from 'react-native';
 import ButtonComponent from '../../components/ButtonComponent';
 import Container from '../../components/Container';
 import DateTimePickerComponent from '../../components/DateTimePickerComponent';
@@ -15,6 +15,7 @@ import {fontFamilies} from '../../constants/fontFamilies';
 import {SelectModel} from '../../models/SelectModel';
 import {Attachment, TaskModel} from '../../models/TaskModel';
 import auth from '@react-native-firebase/auth';
+import {posts} from '../../data/posts';
 
 const initValue: TaskModel = {
   title: '',
@@ -55,6 +56,7 @@ const AddNewTask = ({navigation, route}: any) => {
         uids: task.uids,
       });
   }, [task]);
+
   const handleGetAllUsers = async () => {
     await firestore()
       .collection('users')
