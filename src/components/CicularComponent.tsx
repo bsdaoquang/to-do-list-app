@@ -26,6 +26,7 @@ const CicularComponent = (props: Props) => {
       titleFontSize={20}
       titleStyle={{
         fontFamily: fontFamilies.medium,
+        fontSize: 18,
       }}
     />
   );
