@@ -27,7 +27,6 @@ import {fontFamilies} from '../../constants/fontFamilies';
 import {TaskModel} from '../../models/TaskModel';
 import {globalStyles} from '../../styles/globalStyles';
 import {HandleDateTime} from '../../utils/handeDateTime';
-import TotalTasks from './components/TotalTasks';
 
 const HomeScreen = ({navigation}: any) => {
   const user = auth().currentUser;
@@ -111,21 +110,32 @@ const HomeScreen = ({navigation}: any) => {
         <SectionComponent>
           <RowComponent
             styles={[globalStyles.inputContainer]}
-            onPress={() => navigation.navigate('ListTasks')}>
+            onPress={() => navigation.navigate('SearchScreen')}>
             <TextComponent color="#696B6F" text="Search task" />
             <SearchNormal1 size={20} color={colors.desc} />
           </RowComponent>
         </SectionComponent>
-        <TotalTasks />
+        <SectionComponent>
+          <CardComponent>
+            <RowComponent>
+              <View style={{flex: 1}}>
+                <TitleComponent text="Task progress" />
+                <TextComponent text="30/40" />
+                <SpaceComponent height={12} />
+                <RowComponent justify="flex-start">
+                  <TagComponent text="Match 20" />
+                </RowComponent>
+              </View>
+              <View>
+                <CicularComponent value={80} />
+              </View>
+            </RowComponent>
+          </CardComponent>
+        </SectionComponent>
         {isLoading ? (
           <ActivityIndicator />
         ) : tasks.length > 0 ? (
           <SectionComponent>
-            <RowComponent
-              onPress={() => navigation.navigate('ListTasks')}
-              styles={{paddingVertical: 16, justifyContent: 'flex-end'}}>
-              <TextComponent text="View all" flex={0} />
-            </RowComponent>
             <RowComponent styles={{alignItems: 'flex-start'}}>
               <View style={{flex: 1}}>
                 {tasks[0] && (
