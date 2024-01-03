@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.3.1",
+    "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-native-firebase/app": "^18.7.3",
     "@react-native-firebase/auth": "^18.7.3",
     "@react-native-firebase/firestore": "^18.7.3",
+    "@react-native-firebase/messaging": "^18.7.3",
     "@react-native-firebase/storage": "^18.7.3",
     "@react-native-google-signin/google-signin": "^11.0.0",
     "@react-navigation/native": "^6.1.9",

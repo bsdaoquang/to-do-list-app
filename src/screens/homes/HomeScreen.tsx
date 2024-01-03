@@ -29,6 +29,7 @@ import {globalStyles} from '../../styles/globalStyles';
 import {HandleDateTime} from '../../utils/handeDateTime';
 import {monthNames} from '../../constants/appInfos';
 import {add0ToNumber} from '../../utils/add0ToNumber';
+import {HandleNotification} from '../../utils/handleNotification';
 
 const date = new Date();
 
@@ -41,6 +42,7 @@ const HomeScreen = ({navigation}: any) => {
 
   useEffect(() => {
     getTasks();
+    HandleNotification.checkNotificationPersion();
   }, []);
 
   useEffect(() => {
@@ -140,15 +142,17 @@ const HomeScreen = ({navigation}: any) => {
                 </RowComponent>
               </View>
               <View>
-                <CicularComponent
-                  value={Math.floor(
-                    (tasks.filter(
-                      element => element.progress && element.progress === 1,
-                    ).length /
-                      tasks.length) *
-                      100,
-                  )}
-                />
+                {tasks.length > 0 && (
+                  <CicularComponent
+                    value={Math.floor(
+                      (tasks.filter(
+                        element => element.progress && element.progress === 1,
+                      ).length /
+                        tasks.length) *
+                        100,
+                    )}
+                  />
+                )}
               </View>
             </RowComponent>
           </CardComponent>
@@ -295,27 +299,25 @@ const HomeScreen = ({navigation}: any) => {
           />
           {urgentTask.length > 0 &&
             urgentTask.map(item => (
-              <>
-                <CardComponent
-                  onPress={() => handleMoveToTaskDetail(item.id)}
-                  key={`urgentTask${item.id}`}
-                  styles={{marginBottom: 12}}>
-                  <RowComponent>
-                    <CicularComponent
-                      value={item.progress ? item.progress * 100 : 0}
-                      radius={40}
-                    />
-                    <View
-                      style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        paddingLeft: 12,
-                      }}>
-                      <TextComponent text={item.title} />
-                    </View>
-                  </RowComponent>
-                </CardComponent>
-              </>
+              <CardComponent
+                onPress={() => handleMoveToTaskDetail(item.id)}
+                key={`urgentTask${item.id}`}
+                styles={{marginBottom: 12}}>
+                <RowComponent>
+                  <CicularComponent
+                    value={item.progress ? item.progress * 100 : 0}
+                    radius={40}
+                  />
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      paddingLeft: 12,
+                    }}>
+                    <TextComponent text={item.title} />
+                  </View>
+                </RowComponent>
+              </CardComponent>
             ))}
         </SectionComponent>
       </Container>

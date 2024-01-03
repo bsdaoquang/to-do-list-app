@@ -30,7 +30,7 @@ const LoginScreen = ({navigation}: any) => {
         .signInWithEmailAndPassword(email, password)
         .then(userCredential => {
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
           setIsLoading(false);
         })
         .catch((error: any) => {

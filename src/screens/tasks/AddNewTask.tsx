@@ -16,6 +16,7 @@ import {SelectModel} from '../../models/SelectModel';
 import {Attachment, TaskModel} from '../../models/TaskModel';
 import auth from '@react-native-firebase/auth';
 import {posts} from '../../data/posts';
+import {HandleNotification} from '../../utils/handleNotification';
 
 const initValue: TaskModel = {
   title: '',
@@ -104,15 +105,35 @@ const AddNewTask = ({navigation, route}: any) => {
           .doc(`tasks/${task.id}`)
           .update(data)
           .then(() => {
-            console.log('Task updated!!');
+            if (usersSelect.length > 0) {
+              usersSelect.forEach(member => {
+                member.value !== user.uid &&
+                  HandleNotification.SendNotification({
+                    title: 'Update task',
+                    body: `Your task updated by ${user?.email}`,
+                    taskId: task?.id ?? '',
+                    memberId: member.value,
+                  });
+              });
+            }
             navigation.goBack();
           });
       } else {
         await firestore()
           .collection('tasks')
           .add(data)
-          .then(() => {
-            console.log('New task added!!');
+          .then(snap => {
+            if (usersSelect.length > 0) {
+              usersSelect.forEach(member => {
+                member.value !== user.uid &&
+                  HandleNotification.SendNotification({
+                    title: 'New task',
+                    body: `You have a new task asign by ${user?.email}`,
+                    taskId: snap.id,
+                    memberId: member.value,
+                  });
+              });
+            }
             navigation.goBack();
           })
           .catch(error => console.log(error));
