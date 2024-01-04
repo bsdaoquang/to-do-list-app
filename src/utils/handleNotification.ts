@@ -64,6 +64,23 @@ export class HandleNotification {
     taskId: string;
   }) => {
     try {
+      // save to firestore
+      await firestore()
+        .collection('notifications')
+        .add({
+          isRead: false,
+          createdAt: Date.now(),
+          updatedAT: Date.now(),
+          title,
+          body,
+          taskId,
+          uid: memberId,
+        })
+        .then(() => {
+          console.log('saved');
+        });
+
+      // send notification
       const member: any = await firestore().doc(`users/${memberId}`).get();
 
       if (member && member.data().tokens) {
@@ -76,6 +93,9 @@ export class HandleNotification {
           notification: {
             title,
             body,
+          },
+          data: {
+            taskId,
           },
         });
 

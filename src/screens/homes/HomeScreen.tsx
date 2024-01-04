@@ -30,6 +30,9 @@ import {HandleDateTime} from '../../utils/handeDateTime';
 import {monthNames} from '../../constants/appInfos';
 import {add0ToNumber} from '../../utils/add0ToNumber';
 import {HandleNotification} from '../../utils/handleNotification';
+import messaging from '@react-native-firebase/messaging';
+import {useIsFocused} from '@react-navigation/native';
+import {NotificationModel} from '../../models/NotificationModel';
 
 const date = new Date();
 
@@ -39,10 +42,23 @@ const HomeScreen = ({navigation}: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState<TaskModel[]>([]);
   const [urgentTask, setUrgentTask] = useState<TaskModel[]>([]);
+  const [unReadNotifications, setUnReadNotifications] = useState<
+    NotificationModel[]
+  >([]);
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    isFocused && handleGetUnReadNotifications();
+  }, [isFocused]);
 
   useEffect(() => {
     getTasks();
     HandleNotification.checkNotificationPersion();
+
+    messaging().onMessage(async message => {
+      handleGetUnReadNotifications();
+    });
   }, []);
 
   useEffect(() => {
@@ -83,13 +99,59 @@ const HomeScreen = ({navigation}: any) => {
       color,
     });
 
+  const handleGetUnReadNotifications = () => {
+    const filter = firestore()
+      .collection('notifications')
+      .where('uid', '==', user?.uid)
+      .where('isRead', '==', false);
+
+    try {
+      filter.onSnapshot(snap => {
+        if (snap.empty) {
+          console.log('data not found!');
+          setUnReadNotifications([]);
+        } else {
+          const items: NotificationModel[] = [];
+
+          snap.forEach((item: any) => {
+            items.push({
+              id: item.id,
+              ...item.data(),
+            });
+          });
+          setUnReadNotifications(items);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <Container isScroll>
         <SectionComponent>
           <RowComponent justify="space-between">
             <Element4 size={24} color={colors.desc} />
-            <Notification size={24} color={colors.desc} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('NotificationsScreen')}>
+              <Notification size={24} color={colors.desc} />
+              {unReadNotifications.length > 0 && (
+                <View
+                  style={{
+                    backgroundColor: 'red',
+                    borderRadius: 100,
+                    borderWidth: 2,
+                    borderColor: colors.white,
+                    width: 10,
+                    height: 10,
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                  }}
+                />
+              )}
+            </TouchableOpacity>
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
