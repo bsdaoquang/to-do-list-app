@@ -133,25 +133,7 @@ const HomeScreen = ({navigation}: any) => {
         <SectionComponent>
           <RowComponent justify="space-between">
             <Element4 size={24} color={colors.desc} />
-            <TouchableOpacity
-              onPress={() => navigation.navigate('NotificationsScreen')}>
-              <Notification size={24} color={colors.desc} />
-              {unReadNotifications.length > 0 && (
-                <View
-                  style={{
-                    backgroundColor: 'red',
-                    borderRadius: 100,
-                    borderWidth: 2,
-                    borderColor: colors.white,
-                    width: 10,
-                    height: 10,
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                  }}
-                />
-              )}
-            </TouchableOpacity>
+            <Notification size={24} color={colors.desc} />
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
