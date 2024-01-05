@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {useIsFocused, useLinkTo} from '@react-navigation/native';
 import {
   Add,
   Edit2,
@@ -9,7 +10,7 @@ import {
   SearchNormal1,
 } from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Linking, TouchableOpacity, View} from 'react-native';
 import AvatarGroup from '../../components/AvatarGroup';
 import CardComponent from '../../components/CardComponent';
 import CardImageConponent from '../../components/CardImageConponent';
@@ -22,22 +23,23 @@ import SpaceComponent from '../../components/SpaceComponent';
 import TagComponent from '../../components/TagComponent';
 import TextComponent from '../../components/TextComponent';
 import TitleComponent from '../../components/TitleComponent';
+import {monthNames} from '../../constants/appInfos';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
 import {TaskModel} from '../../models/TaskModel';
 import {globalStyles} from '../../styles/globalStyles';
-import {HandleDateTime} from '../../utils/handeDateTime';
-import {monthNames} from '../../constants/appInfos';
 import {add0ToNumber} from '../../utils/add0ToNumber';
+import {HandleDateTime} from '../../utils/handeDateTime';
 import {HandleNotification} from '../../utils/handleNotification';
-import messaging from '@react-native-firebase/messaging';
-import {useIsFocused} from '@react-navigation/native';
 import {NotificationModel} from '../../models/NotificationModel';
+import messaging from '@react-native-firebase/messaging';
 
 const date = new Date();
 
 const HomeScreen = ({navigation}: any) => {
   const user = auth().currentUser;
+
+  const linkTo = useLinkTo();
 
   const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState<TaskModel[]>([]);
@@ -49,16 +51,20 @@ const HomeScreen = ({navigation}: any) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    isFocused && handleGetUnReadNotifications();
-  }, [isFocused]);
-
-  useEffect(() => {
     getTasks();
     HandleNotification.checkNotificationPersion();
-
-    messaging().onMessage(async message => {
+    messaging().onMessage(mess => {
       handleGetUnReadNotifications();
     });
+
+    messaging()
+      .getInitialNotification()
+      .then((mess: any) => {
+        const data = mess.data;
+        const taskid = data.taskId;
+
+        linkTo(`/task-detail/${taskid}`);
+      });
   }, []);
 
   useEffect(() => {
@@ -100,31 +106,25 @@ const HomeScreen = ({navigation}: any) => {
     });
 
   const handleGetUnReadNotifications = () => {
-    const filter = firestore()
+    firestore()
       .collection('notifications')
       .where('uid', '==', user?.uid)
-      .where('isRead', '==', false);
-
-    try {
-      filter.onSnapshot(snap => {
-        if (snap.empty) {
-          console.log('data not found!');
-          setUnReadNotifications([]);
-        } else {
+      .where('isRead', '==', false)
+      .onSnapshot(snap => {
+        if (!snap.empty) {
           const items: NotificationModel[] = [];
-
           snap.forEach((item: any) => {
             items.push({
               id: item.id,
               ...item.data(),
             });
           });
+
           setUnReadNotifications(items);
+        } else {
+          setUnReadNotifications([]);
         }
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -133,7 +133,27 @@ const HomeScreen = ({navigation}: any) => {
         <SectionComponent>
           <RowComponent justify="space-between">
             <Element4 size={24} color={colors.desc} />
-            <Notification size={24} color={colors.desc} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Notifications')}>
+              <Notification size={24} color={colors.desc} />
+              {unReadNotifications.length > 0 && (
+                <View
+                  style={{
+                    backgroundColor: 'red',
+                    borderRadius: 100,
+                    borderWidth: 2,
+                    borderColor: colors.white,
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: 12,
+                    height: 12,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                />
+              )}
+            </TouchableOpacity>
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
@@ -265,6 +285,7 @@ const HomeScreen = ({navigation}: any) => {
                   </CardImageConponent>
                 )}
               </View>
+
               <SpaceComponent width={16} />
               <View style={{flex: 1}}>
                 {tasks[1] && (

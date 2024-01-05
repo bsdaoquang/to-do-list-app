@@ -7,9 +7,16 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import SigninScreen from '../screens/auth/SigninScreen';
 import TaskDetail from '../screens/tasks/TaskDetail';
 import ListTasks from '../screens/tasks/ListTasks';
+import Notifications from '../screens/Notifications';
+import {useLinkTo} from '@react-navigation/native';
+import messaging from '@react-native-firebase/messaging';
+import {Linking} from 'react-native';
+import {NotificationModel} from '../models/NotificationModel';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState(false);
+
+  const linkTo = useLinkTo();
 
   useEffect(() => {
     auth().onAuthStateChanged(user => {
@@ -18,6 +25,13 @@ const Router = () => {
       } else {
         setIsLogin(false);
       }
+    });
+
+    messaging().onNotificationOpenedApp((mess: any) => {
+      const data = mess.data;
+      const taskid = data.taskId;
+
+      linkTo(`/task-detail/${taskid}`);
     });
   }, []);
 
@@ -32,6 +46,7 @@ const Router = () => {
       <Stack.Screen name="AddNewTask" component={AddNewTask} />
       <Stack.Screen name="TaskDetail" component={TaskDetail} />
       <Stack.Screen name="ListTasks" component={ListTasks} />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 
