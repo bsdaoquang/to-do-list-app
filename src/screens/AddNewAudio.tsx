@@ -6,7 +6,7 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from '../components/Container';
 import SectionComponent from '../components/SectionComponent';
 import {DocumentPickerResponse} from 'react-native-document-picker';
@@ -22,6 +22,8 @@ import DocumentPicker from 'react-native-document-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {calcFileSize} from '../utils/calcFileSize';
 import firestore from '@react-native-firebase/firestore';
+import RNFetchBold from 'rn-fetch-blob';
+import {replaceName} from '../utils/replaceName';
 
 const initValues = {
   title: '',
@@ -33,6 +35,16 @@ const AddNewAudio = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [fileTransfered, setFileTransfered] = useState(0);
 
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_MEDIA_AUDIO,
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      ]).then(res => console.log(res));
+    }
+  }, []);
+
   const updateFromData = (key: string, value: string) => {
     const data: any = {...formData};
     data[`${key}`] = value;
@@ -41,44 +53,55 @@ const AddNewAudio = () => {
   };
 
   const getFilePath = async (file: DocumentPickerResponse) => {
-    return ``;
+    try {
+      return Platform.OS === 'ios'
+        ? file.uri
+        : (await RNFetchBold.fs.stat(file.uri)).path;
+    } catch (error) {
+      console.log(error);
+      Alert.alert('', 'Can not get file path');
+    }
   };
 
   const handleUploadAudio = async () => {
     if (formData.title && selectedFile) {
-      const filename = selectedFile.name;
+      const filename = replaceName(selectedFile.name ?? '');
+
       const path = `audios/${filename}`;
+      const uri = await getFilePath(selectedFile);
 
-      const res = storage().ref(path).putFile(selectedFile.uri);
-
-      res.on('state_changed', snap => {
-        setFileTransfered(snap.bytesTransferred);
-      });
-
-      res.catch(error => {
-        console.log(error);
-      });
-
-      res.then(() => {
-        storage()
-          .ref(path)
-          .getDownloadURL()
-          .then(async url => {
-            const data = {
-              ...formData,
-              audioUrl: url,
-              createdAt: firestore.FieldValue.serverTimestamp(),
-              updatedAt: firestore.FieldValue.serverTimestamp(),
-            };
-
-            await firestore()
-              .collection('audios')
-              .add(data)
-              .then(() => {
-                console.log('Update successfully!!!');
+      if (uri) {
+        const res = storage().ref(path).putFile(uri);
+        res.on(
+          'state_changed',
+          snap => {
+            setFileTransfered(snap.bytesTransferred);
+            console.log(snap.state);
+          },
+          error => {
+            console.log(error);
+          },
+          () => {
+            storage()
+              .ref(path)
+              .getDownloadURL()
+              .then(async url => {
+                const data = {
+                  ...formData,
+                  audioUrl: url,
+                  createdAt: firestore.FieldValue.serverTimestamp(),
+                  updatedAt: firestore.FieldValue.serverTimestamp(),
+                };
+                await firestore()
+                  .collection('audios')
+                  .add(data)
+                  .then(() => {
+                    console.log('Update successfully!!!');
+                  });
               });
-          });
-      });
+          },
+        );
+      }
     } else {
       Alert.alert('', 'File audio is missing!!!');
     }
