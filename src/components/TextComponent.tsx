@@ -26,7 +26,7 @@ const TextComponent = (props: Props) => {
       : {};
   return (
     <Text
-      numberOfLines={line}
+      numberOfLines={line ?? 1}
       style={[
         globalStyles.text,
         weight,
@@ -34,7 +34,7 @@ const TextComponent = (props: Props) => {
           flex: flex ?? 1,
           fontFamily: font ?? fontFamilies.regular,
           fontSize: size ?? 14,
-          color: color ?? colors.desc,
+          color: color ?? colors.text,
         },
         styles,
       ]}>

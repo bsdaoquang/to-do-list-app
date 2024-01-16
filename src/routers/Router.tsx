@@ -12,6 +12,7 @@ import {useLinkTo} from '@react-navigation/native';
 import messaging from '@react-native-firebase/messaging';
 import {Linking} from 'react-native';
 import {NotificationModel} from '../models/NotificationModel';
+import AddNewAudio from '../screens/AddNewAudio';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -47,6 +48,7 @@ const Router = () => {
       <Stack.Screen name="TaskDetail" component={TaskDetail} />
       <Stack.Screen name="ListTasks" component={ListTasks} />
       <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="AddNewAudio" component={AddNewAudio} />
     </Stack.Navigator>
   );
 

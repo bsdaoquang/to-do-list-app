@@ -76,7 +76,7 @@ const InputComponent = (props: Props) => {
 
         {allowClear && value && (
           <TouchableOpacity onPress={() => onChange('')}>
-            <AntDesign name="close" size={20} color={colors.white} />
+            <AntDesign name="close" size={20} color={colors.text} />
           </TouchableOpacity>
         )}
 
