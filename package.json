@@ -9,7 +9,9 @@
     "start": "react-native start",
     "test": "jest",
     "buildAAB": "npx react-native build-android --mode=release",
-    "buildAPK": "npm run android -- --mode=release"
+    "buildAPK": "npm run android -- --mode=release",
+    "publish-android": "appcenter codepush release-react -a bsdaoquang.yhocso-gmail.com/ToDoList-Android -d Production",
+    "publish-ios": "appcenter codepush release-react -a bsdaoquang.yhocso-gmail.com/ToDoList-iOS -d Production"
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.3.1",
@@ -26,6 +28,7 @@
     "react": "18.2.0",
     "react-native": "0.72.7",
     "react-native-circular-progress-indicator": "^4.4.2",
+    "react-native-code-push": "^8.1.1",
     "react-native-date-picker": "^4.3.4",
     "react-native-document-picker": "^9.1.0",
     "react-native-reanimated": "^3.3.0",
